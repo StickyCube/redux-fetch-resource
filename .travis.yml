@@ -13,6 +13,7 @@ node_js:
   - '4'
 
 before_install:
+  - npm i -g coveralls
   - npm i -g npm@^2.0.0
 
 before_script:
