@@ -20,7 +20,7 @@ module.exports = {
   },
   entry: './src/index.js',
   output: {
-    path: join(__dirname, 'dist'),
+    path: join(__dirname, 'dist', 'umd'),
     library: 'ReduxFetchResource',
     libraryTarget: 'umd'
   },
