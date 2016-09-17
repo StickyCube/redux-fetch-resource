@@ -20,12 +20,14 @@ before_script:
   - npm prune
 
 script:
+  - npm run lint
   - npm run test:coverage
   - npm run coverage:check
   - npm run build
 
 after_success:
   - npm run coverage:report
+  - npm run coverage:coveralls
   - npm run semantic-release
 
 branches:

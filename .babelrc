@@ -5,5 +5,13 @@
   ],
   "plugins": [
     "transform-decorators-legacy"
-  ]
+  ],
+  "env": {
+    "sourceMaps": "inline",
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
 }
