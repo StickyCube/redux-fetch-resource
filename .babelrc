@@ -3,15 +3,5 @@
     "es2015",
     "stage-0"
   ],
-  "plugins": [
-    "transform-decorators-legacy"
-  ],
-  "env": {
-    "sourceMaps": "inline",
-    "test": {
-      "plugins": [
-        "istanbul"
-      ]
-    }
-  }
+  "env": { "testing": { "plugins": ["istanbul"] } }
 }
