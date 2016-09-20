@@ -1,9 +1,10 @@
 import test from 'ava';
+import noop from 'lodash/noop';
 import sinon from 'sinon';
 import {createStoreWithOptions} from '../fixtures/redux.js';
 import {FETCH_RESOURCE} from '../../src/index.js';
 
-let fetch = sinon.stub();
+let fetch = sinon.stub().returns(new Promise(noop));
 let store = createStoreWithOptions({ fetch });
 
 test.beforeEach(t => {
@@ -11,7 +12,7 @@ test.beforeEach(t => {
 });
 
 test('Should consume FETCH_RESOURCE actions', t => {
-  store.dispatch({ type: FETCH_RESOURCE, payload: { endpoint: '/foo' } });
+  store.dispatch({ type: FETCH_RESOURCE, payload: { endpoint: '/foo' }, promise: {} });
   t.is(fetch.called, true);
 });
 

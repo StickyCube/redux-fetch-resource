@@ -1,4 +1,5 @@
 import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 import FetchResourceMiddleware from '../../src/index.js';
 
 export function createStoreWithOptions (reducer, options) {
@@ -10,6 +11,7 @@ export function createStoreWithOptions (reducer, options) {
   return createStore(
     reducer,
     applyMiddleware(
+      thunk,
       FetchResourceMiddleware(options)
     )
   );

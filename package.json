@@ -34,6 +34,8 @@
     "commitizen": "2.8.6",
     "cross-env": "2.0.1",
     "cz-conventional-changelog": "1.2.0",
+    "express": "4.14.0",
+    "jsdom": "9.5.0",
     "mocha": "3.0.2",
     "npm-run-all": "3.1.0",
     "nyc": "8.3.0",
@@ -45,13 +47,15 @@
     "webpack": "1.13.2"
   },
   "peerDependencies": {
-    "react": ">=0.x.x"
+    "react": ">=0.x.x",
+    "redux-thunk": ">=0.x.x"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/StickyCube/redux-fetch-resource.git"
   },
   "dependencies": {
+    "lodash": "4.16.0",
     "warning": "3.0.0"
   },
   "semistandard": {
@@ -91,6 +95,7 @@
       "./__TESTS__/fixtures/setup.js",
       "babel-register"
     ],
-    "verbose": true
+    "verbose": true,
+    "serial": true
   }
 }

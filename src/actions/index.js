@@ -11,8 +11,15 @@ export const FETCH_RESOURCE_RESPONSE_ERROR = internalType('FETCH_RESOURCE_RESPON
 /**
  * Action creator for fetch middleware
  * @param {string} endpoint                 The endpoint of the resource
+ * @param {object} [options={}]             Additional request options
+ * @param {string} [options.method='GET']   The request method
  */
-export const FetchResource = (endpoint) => ({
-  type: FETCH_RESOURCE,
-  payload: { endpoint }
-});
+export const FetchResource = (endpoint, options = {}) => dispatch => {
+  return new Promise((resolve, reject) => {
+    dispatch({
+      type: FETCH_RESOURCE,
+      promise: { resolve, reject },
+      payload: { endpoint, options }
+    });
+  });
+};

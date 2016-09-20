@@ -1,4 +1,5 @@
 import test from 'ava';
+import noop from 'lodash/noop';
 import sinon from 'sinon';
 import {createStoreWithOptions} from '../fixtures/redux.js';
 import {FetchResource} from '../../src/index.js';
@@ -7,8 +8,8 @@ function dispatch (store) {
   return store.dispatch(FetchResource('/foo'));
 }
 
-let windowFetch = sinon.stub();
-let optionsFetch = sinon.stub();
+let windowFetch = sinon.stub().returns(new Promise(noop));
+let optionsFetch = sinon.stub().returns(new Promise(noop));
 
 test.beforeEach(() => {
   windowFetch.reset();
@@ -17,13 +18,6 @@ test.beforeEach(() => {
 
 test.afterEach(() => {
   delete window.fetch;
-});
-
-test('When No fetch implementation is provided, it should throw', t => {
-  const store = createStoreWithOptions();
-  t.throws(function () {
-    dispatch(store);
-  });
 });
 
 test('When fetch is on window object it should be used', t => {

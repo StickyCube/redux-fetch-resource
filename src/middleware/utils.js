@@ -1,0 +1,80 @@
+import warning from 'warning';
+import isString from 'lodash/isString';
+
+/**
+ * Array of valid, supported HTTP methods
+ * @type {string[]}
+ */
+const VALID_HTTP_METHODS = [
+  'GET', 'HEAD', 'POST',
+  'PUT', 'DELETE', 'OPTIONS',
+  'CONNECT', 'PATCH'
+];
+
+const METHOD_ERROR_MESSAGE = `Please use one of ${VALID_HTTP_METHODS.join(', ')}`;
+
+/**
+ * Normalizes a method name such that it is uppercase and without whitespace
+ * @param  {string} method  Method name to normalize
+ * @return {string}         The normalized method name
+ */
+export function normalizeMethod (method) {
+  return isString(method)
+    ? method.toUpperCase().trim()
+    : '';
+}
+
+/**
+ * Test whether a given method name is valid. `method` will be normalized before
+ * testing wheter it is valid.
+ * @param  {string}  method   The method to check
+ * @return {boolean}          If this method name is valid
+ */
+export function isValidMethod (method) {
+  return VALID_HTTP_METHODS.indexOf(normalizeMethod(method)) > -1;
+}
+
+/**
+ * Validates and assigns default values to middleware options
+ * @param  {object} options   The options passed to the store middleware creator
+ * @return {object}           The validated options with defaults asssigned
+ */
+export function getConfigWithDefaults (options = {}) {
+  /**
+   * Assert that fetch is either defined on the window or options & Display a
+   * helpful message if not
+   */
+  warning(
+    (
+      typeof window.fetch === 'function' ||
+      typeof options.fetch === 'function'
+    ),
+    `redux-fetch-resource relies on the fetch api.
+    for redux-fetch-resource to function correctly you must either:
+      - use a wahtwg fetch polyfill, we recommend https://github.com/github/fetch
+      - provide a fetch implementation in options.fetch which meets the standards outlined in the spec https://fetch.spec.whatwg.org`
+  );
+
+  // prefer the implementation passed in options over window
+  let fetch = options.fetch || window.fetch;
+
+  /**
+   * Assert that options.defaultMethod is valid and normalized if it has been
+   * provided Otherwise default it to 'GET'
+   */
+  warning(
+    (
+      options.defaultMethod == null ||
+      !isValidMethod(defaultMethod)
+    ),
+    `The method provided in options.defaultMethod ${options.defaultMethod} is invalid or not supported.
+    ${METHOD_ERROR_MESSAGE}`
+  );
+
+  let defaultMethod = options.defaultMethod || 'GET';
+
+  return {
+    fetch,
+    defaultMethod
+  };
+}
