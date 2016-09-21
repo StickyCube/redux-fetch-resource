@@ -25,3 +25,4 @@ npm i --save redux-fetch-resource redux-thunk
 * Add lifecycle hooks
 * Customizable response parsing
 * Customizable error filtering
+* Documentation!

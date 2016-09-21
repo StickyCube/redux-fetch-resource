@@ -55,7 +55,7 @@ function getURL (action) {
  */
 function getRequestOptions (action, config) {
   const {payload} = action;
-  const {options = {}} = payload;
+  const {options} = payload;
   const {defaultMethod} = config;
 
   const method = normalizeMethod(options.method || defaultMethod);
@@ -76,7 +76,7 @@ function create (store, action, config) {
   /**
    * Format the raw response and response data into a consumable object
    */
-  function formatResponse (response, body = null) {
+  function formatResponse (response, body) {
     return {
       url,
       body,
