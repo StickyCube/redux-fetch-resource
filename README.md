@@ -4,8 +4,24 @@
 
 # redux-fetch-resource
 
+redux-fetch-resource is a complete solution for making api calls in your React/Redux applications.
+
 ## Getting started
 
+redux-fetch-resource relies on redux-thunk as a peer dependency so you will need to install both.
 ```
-npm i --save redux-fetch-resource
+npm i --save redux-fetch-resource redux-thunk
 ```
+
+## TODO - v0.0.0
+* Option for headers
+* Option for api root
+* Handle get queries
+* Handle cookies/jwt
+* Make api for `createEndpoint`
+  - creates an action creator for an endpoint
+  - mergable params
+  - move most action options here
+* Add lifecycle hooks
+* Customizable response parsing
+* Customizable error filtering

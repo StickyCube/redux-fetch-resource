@@ -13,7 +13,7 @@
     "build:umd": "webpack --output-filename redux-fetch-resource.js",
     "build:umd.min": "webpack --output-filename redux-fetch-resource.min.js -p",
     "test": "ava",
-    "test:watch": "npm t -- -watch",
+    "test:watch": "cross-env NODE_ENV=development npm t -- -watch",
     "test:coverage": "cross-env NODE_ENV=testing nyc npm t",
     "coverage:check": "nyc check-coverage",
     "coverage:report": "nyc report --reporter=lcov",
@@ -24,10 +24,13 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "0.16.0",
+    "ava-spec": "1.0.1",
     "babel-cli": "6.14.0",
     "babel-eslint": "6.1.2",
     "babel-loader": "6.2.5",
     "babel-plugin-istanbul": "2.0.1",
+    "babel-plugin-syntax-async-functions": "6.13.0",
+    "babel-polyfill": "6.13.0",
     "babel-preset-es2015": "6.14.0",
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.14.0",
@@ -35,6 +38,7 @@
     "cross-env": "2.0.1",
     "cz-conventional-changelog": "1.2.0",
     "express": "4.14.0",
+    "ghooks": "1.3.2",
     "jsdom": "9.5.0",
     "mocha": "3.0.2",
     "npm-run-all": "3.1.0",
@@ -47,8 +51,7 @@
     "webpack": "1.13.2"
   },
   "peerDependencies": {
-    "react": ">=0.x.x",
-    "redux-thunk": ">=0.x.x"
+    "redux-thunk": "*"
   },
   "repository": {
     "type": "git",
@@ -64,6 +67,9 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm t"
     }
   },
   "nyc": {
@@ -92,7 +98,7 @@
       "./src/**/*.js"
     ],
     "require": [
-      "./__TESTS__/fixtures/setup.js",
+      "babel-polyfill",
       "babel-register"
     ],
     "verbose": true,

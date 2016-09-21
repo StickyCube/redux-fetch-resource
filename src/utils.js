@@ -41,8 +41,7 @@ export function isValidMethod (method) {
  */
 export function getConfigWithDefaults (options = {}) {
   /**
-   * Assert that fetch is either defined on the window or options & Display a
-   * helpful message if not
+   * Assert that fetch is either defined on the window or options
    */
   warning(
     (
@@ -65,7 +64,7 @@ export function getConfigWithDefaults (options = {}) {
   warning(
     (
       options.defaultMethod == null ||
-      !isValidMethod(defaultMethod)
+      isValidMethod(options.defaultMethod)
     ),
     `The method provided in options.defaultMethod ${options.defaultMethod} is invalid or not supported.
     ${METHOD_ERROR_MESSAGE}`
@@ -73,7 +72,19 @@ export function getConfigWithDefaults (options = {}) {
 
   let defaultMethod = options.defaultMethod || 'GET';
 
+  /**
+   * Assert that startType, endType and errorType are strings or Symbols
+   */
+  'startType endType errorType'.split(' ').forEach(elm => {
+    warning(
+      options[elm] == null ||
+      isString(options[elm]),
+      `Expected option ${elm} to be a string but got ${typeof options[elm]}`
+    );
+  });
+
   return {
+    ...options,
     fetch,
     defaultMethod
   };

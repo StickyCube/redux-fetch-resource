@@ -1,15 +1,15 @@
 import test from 'ava';
-import noop from 'lodash/noop';
-import sinon from 'sinon';
-import {createStoreWithOptions} from '../fixtures/redux.js';
-import {FetchResource} from '../../src/index.js';
+import {env, mocks, createStoreWithOptions} from './fixtures.js';
+import {FetchResource} from '../src/index.js';
+
+env.injectGlobals();
 
 function dispatch (store) {
   return store.dispatch(FetchResource('/foo'));
 }
 
-let windowFetch = sinon.stub().returns(new Promise(noop));
-let optionsFetch = sinon.stub().returns(new Promise(noop));
+const windowFetch = mocks.noopFetch();
+const optionsFetch = mocks.noopFetch();
 
 test.beforeEach(() => {
   windowFetch.reset();

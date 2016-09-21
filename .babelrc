@@ -3,5 +3,19 @@
     "es2015",
     "stage-0"
   ],
-  "env": { "testing": { "plugins": ["istanbul"] } }
+  "env": {
+    "testing": {
+      "plugins": [
+        "syntax-async-functions",
+        "transform-regenerator",
+        "istanbul"
+      ]
+    },
+    "development": {
+      "plugins": [
+        "syntax-async-functions",
+        "transform-regenerator"
+      ]
+    }
+  }
 }

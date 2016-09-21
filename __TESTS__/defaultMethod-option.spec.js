@@ -1,10 +1,10 @@
 import test from 'ava';
-import noop from 'lodash/noop';
-import sinon from 'sinon';
-import {createStoreWithOptions} from '../fixtures/redux.js';
-import {FetchResource} from '../../src/actions';
+import {env, mocks, createStoreWithOptions} from './fixtures.js';
+import {FetchResource} from '../src/index.js';
 
-const fetch = sinon.stub().returns(new Promise(noop));
+env.injectGlobals();
+
+const fetch = mocks.noopFetch();
 const defaultStore = createStoreWithOptions({ fetch });
 const postStore = createStoreWithOptions({ fetch, defaultMethod: 'POST' });
 const denormalizedStore = createStoreWithOptions({ fetch, defaultMethod: 'patch' });
