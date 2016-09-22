@@ -46,26 +46,33 @@ function resolveHeaders (fromConfig, fromAction) {
   return { ...config, ...action };
 }
 
-/**
-* Resolve the endpoint for the current request
-* @return {string} url   An endpoint for the resource
-*/
-function getURL (action) {
-  const {endpoint} = action.payload;
-
-  warning(
-    (
-      isString(endpoint) &&
-      endpoint !== ''
-    ),
-    `The specified endpoint must be a non empty string`
-  );
-
-  return endpoint;
-}
-
 function create (store, action, config) {
   const dispatcher = ActionDispatcher.create(store, action, config);
+
+  /**
+   * Resolve the url for the current request
+   * @return {string} url   An endpoint or qualified url for the resource
+   */
+  function getURL (action) {
+    const {endpoint} = action.payload;
+    const {apiRoot} = config;
+
+    warning(
+      (
+        isString(endpoint) &&
+        endpoint !== ''
+      ),
+      `The specified endpoint must be a non empty string`
+    );
+
+    // strip traling slashes
+    let root = apiRoot.replace(/\/+$/, '');
+    // strip leading and trailing slashes
+    let path = endpoint.replace(/^\/+|\/+$/g, '');
+
+    return [root, path].join('/');
+  }
+
   const url = getURL(action);
 
   /**

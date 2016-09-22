@@ -59,9 +59,31 @@ function createServer (app) {
   });
 }
 
+class MockResponse {
+  constructor (data = {}) {
+    this._json = data;
+    this._text = JSON.stringify(data);
+    this.ok = true;
+    this.statusCode = 200;
+    this.headers = new Map();
+  }
+
+  text () {
+    return Promise.resolve(this._text);
+  }
+
+  json () {
+    return Promise.resolve(this._json);
+  }
+}
+
 export const mocks = {
   noopFetch: function () {
     return sinon.stub().returns(new Promise(noop));
+  },
+
+  successFetch: function (result = {}) {
+    return sinon.stub().returns(Promise.resolve(new MockResponse(result)));
   },
 
   errorFetch: function (error = {}) {
@@ -70,10 +92,7 @@ export const mocks = {
 
   window: function () {
     return {
-      location: {},
-      Headers: class {
-        append () { return this; }
-      }
+      location: {}
     };
   }
 };

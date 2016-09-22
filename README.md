@@ -14,8 +14,8 @@ npm i --save redux-fetch-resource redux-thunk
 ```
 
 ## TODO - v0.0.0
-* Option for headers
-* Option for api root
+* ~~Option for headers~~
+* ~~Option for api root~~
 * Handle get queries
 * Handle cookies/jwt
 * Make api for `createEndpoint`

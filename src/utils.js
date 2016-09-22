@@ -77,15 +77,31 @@ export function getConfigWithDefaults (options = {}) {
    */
   'startType endType errorType'.split(' ').forEach(elm => {
     warning(
-      options[elm] == null ||
-      isString(options[elm]),
+      (
+        options[elm] == null ||
+        isString(options[elm])
+      ),
       `Expected option ${elm} to be a string but got ${typeof options[elm]}`
     );
   });
 
+  /**
+   * Assert that apiRoot is a string if it exists
+   */
+  warning(
+    (
+      options.apiRoot == null ||
+      isString(options.apiRoot)
+    ),
+    `Expected option apiRoot to be a string gut got ${typeof options.apiRoot}`
+  );
+
+  let apiRoot = options.apiRoot || '/';
+
   return {
     ...options,
     fetch,
-    defaultMethod
+    defaultMethod,
+    apiRoot
   };
 }
