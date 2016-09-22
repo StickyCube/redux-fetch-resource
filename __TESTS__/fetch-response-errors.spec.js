@@ -1,15 +1,16 @@
-import test from 'ava';
+import {before, after} from 'ava';
+import test from 'ava-spec';
 import {env, mocks, createStoreWithOptions} from './fixtures.js';
 import {FetchResource} from '../src/index.js';
 
 let store = null;
 
-test.before(async t => {
+before(async t => {
   await env.mount();
   store = createStoreWithOptions();
 });
 
-test.after(async t => {
+after.always(async t => {
   return await env.unmount();
 });
 

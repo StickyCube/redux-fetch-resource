@@ -1,4 +1,5 @@
 import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
 import warning from 'warning';
 import ActionDispatcher from './ActionDispatcher.js';
 import {normalizeMethod, isValidMethod} from './utils.js';
@@ -16,6 +17,14 @@ function safeParse (text) {
   }
 }
 
+function callOrDefault (value, defaultValue) {
+  if (isFunction(value)) {
+    value = value();
+  }
+
+  return value || defaultValue;
+}
+
 /**
  * Maps an instance of Headers to a plain javascript object
  * @param  {Headers} headers  instance of Headers to map
@@ -29,6 +38,12 @@ function mapHeadersToObject (headers) {
   }
 
   return object;
+}
+
+function resolveHeaders (fromConfig, fromAction) {
+  const config = callOrDefault(fromConfig, {});
+  const action = callOrDefault(fromAction, {});
+  return { ...config, ...action };
 }
 
 /**
@@ -49,29 +64,29 @@ function getURL (action) {
   return endpoint;
 }
 
-/**
- * Creates the request options which are passed to fetch
- * @return {object} requestOptions
- */
-function getRequestOptions (action, config) {
-  const {payload} = action;
-  const {options} = payload;
-  const {defaultMethod} = config;
-
-  const method = normalizeMethod(options.method || defaultMethod);
-
-  warning(
-    isValidMethod(method),
-    `The request for resource at ${payload.endpoint} specified an invalid method: "${method}"`
-  );
-
-  return { method };
-}
-
 function create (store, action, config) {
   const dispatcher = ActionDispatcher.create(store, action, config);
   const url = getURL(action);
-  const requestOptions = getRequestOptions(action, config);
+
+  /**
+   * Creates the request options which are passed to fetch
+   * @return {object} requestOptions
+   */
+  function formatRequest () {
+    const {payload} = action;
+    const {options} = payload;
+    const {defaultMethod} = config;
+
+    const method = normalizeMethod(options.method || defaultMethod);
+    const headers = resolveHeaders(config.headers, options.headers);
+
+    warning(
+      isValidMethod(method),
+      `The request for resource at ${payload.endpoint} specified an invalid method: "${method}"`
+    );
+
+    return { method, headers };
+  }
 
   /**
    * Format the raw response and response data into a consumable object
@@ -168,10 +183,10 @@ function create (store, action, config) {
   return function () {
     onRequestDidStart();
 
-    return config.fetch(url, requestOptions).then(
-      onServerResponse,
-      onRequestError
-    );
+    return config.fetch(
+      url,
+      formatRequest()
+    ).then(onServerResponse, onRequestError);
   };
 }
 

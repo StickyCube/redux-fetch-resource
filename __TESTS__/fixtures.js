@@ -59,6 +59,25 @@ function createServer (app) {
   });
 }
 
+export const mocks = {
+  noopFetch: function () {
+    return sinon.stub().returns(new Promise(noop));
+  },
+
+  errorFetch: function (error = {}) {
+    return sinon.stub().returns(Promise.reject(error));
+  },
+
+  window: function () {
+    return {
+      location: {},
+      Headers: class {
+        append () { return this; }
+      }
+    };
+  }
+};
+
 export const env = {
   app: createExpressApp(),
 
@@ -66,7 +85,7 @@ export const env = {
 
   window: null,
 
-  injectGlobals: function (window = { location: {} }) {
+  injectGlobals: function (window = mocks.window()) {
     global.window = window;
   },
 
@@ -105,15 +124,5 @@ export function createStoreWithOptions (reducer, options) {
     )
   );
 }
-
-export const mocks = {
-  noopFetch: function () {
-    return sinon.stub().returns(new Promise(noop));
-  },
-
-  errorFetch: function (error = {}) {
-    return sinon.stub().returns(Promise.reject(error));
-  }
-};
 
 export default { env, mocks, createStoreWithOptions };

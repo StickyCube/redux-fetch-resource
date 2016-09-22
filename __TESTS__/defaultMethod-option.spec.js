@@ -1,4 +1,4 @@
-import test from 'ava';
+import test from 'ava-spec';
 import {env, mocks, createStoreWithOptions} from './fixtures.js';
 import {FetchResource} from '../src/index.js';
 

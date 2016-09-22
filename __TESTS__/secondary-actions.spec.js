@@ -1,3 +1,4 @@
+import {before, after} from 'ava';
 import test from 'ava-spec';
 import {combineReducers} from 'redux';
 import {env, mocks, createStoreWithOptions} from './fixtures.js';
@@ -15,12 +16,12 @@ function createSinglePropertyReducer (type) {
   });
 }
 
-test.before(async t => {
+before(async t => {
   await env.mount();
 });
 
-test.after(async t => {
-  await env.unmount();
+after.always(async t => {
+  return await env.unmount();
 });
 
 test.describe('Internal secondary actions -', test => {

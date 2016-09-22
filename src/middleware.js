@@ -9,6 +9,7 @@ import {getConfigWithDefaults} from './utils.js';
  * @param  {(string|Symbol)} [options.startType]    An addtional secondary action to dispatch before a request starts
  * @param  {string} [options.endType]               An addtional secondary action to dispatch When a successful response is received
  * @param  {string} [options.errorType]             An addtional secondary action to dispatch When a request/response error is encountered
+ * @param  {(object|function)} [options.headers={}] A map (or function returning a map) of additional headers to send with all requests
  * @param  {function} [fetch=window.fetch]          A customized implementation of the whatwg fetch spec. This is used internally for testing. You should consider using a fetch polyfill rather than this option.
  * @return {function}                               Middleware which can be passed to redux.applyMiddleware
  */
