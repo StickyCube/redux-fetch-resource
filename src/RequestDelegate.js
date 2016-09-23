@@ -1,8 +1,5 @@
-import isString from 'lodash/isString';
-import isFunction from 'lodash/isFunction';
-import warning from 'warning';
 import ActionDispatcher from './ActionDispatcher.js';
-import {normalizeMethod, isValidMethod} from './utils.js';
+import RequestOptions from './RequestOptions.js';
 
 /**
  * Attempts to parse raw response data as JSON
@@ -15,14 +12,6 @@ function safeParse (text) {
   } catch (e) {
     return text;
   }
-}
-
-function callOrDefault (value, defaultValue) {
-  if (isFunction(value)) {
-    value = value();
-  }
-
-  return value || defaultValue;
 }
 
 /**
@@ -40,60 +29,9 @@ function mapHeadersToObject (headers) {
   return object;
 }
 
-function resolveHeaders (fromConfig, fromAction) {
-  const config = callOrDefault(fromConfig, {});
-  const action = callOrDefault(fromAction, {});
-  return { ...config, ...action };
-}
-
 function create (store, action, config) {
   const dispatcher = ActionDispatcher.create(store, action, config);
-
-  /**
-   * Resolve the url for the current request
-   * @return {string} url   An endpoint or qualified url for the resource
-   */
-  function getURL (action) {
-    const {endpoint} = action.payload;
-    const {apiRoot} = config;
-
-    warning(
-      (
-        isString(endpoint) &&
-        endpoint !== ''
-      ),
-      `The specified endpoint must be a non empty string`
-    );
-
-    // strip traling slashes
-    let root = apiRoot.replace(/\/+$/, '');
-    // strip leading and trailing slashes
-    let path = endpoint.replace(/^\/+|\/+$/g, '');
-
-    return [root, path].join('/');
-  }
-
-  const url = getURL(action);
-
-  /**
-   * Creates the request options which are passed to fetch
-   * @return {object} requestOptions
-   */
-  function formatRequest () {
-    const {payload} = action;
-    const {options} = payload;
-    const {defaultMethod} = config;
-
-    const method = normalizeMethod(options.method || defaultMethod);
-    const headers = resolveHeaders(config.headers, options.headers);
-
-    warning(
-      isValidMethod(method),
-      `The request for resource at ${payload.endpoint} specified an invalid method: "${method}"`
-    );
-
-    return { method, headers };
-  }
+  const { url, options } = RequestOptions.resolve(store, action, config);
 
   /**
    * Format the raw response and response data into a consumable object
@@ -152,21 +90,21 @@ function create (store, action, config) {
   }
 
   /**
-   * Response success lifecycle handler
-   */
-  function onResponseSuccess (response, body) {
-    const result = formatResponse(response, body);
-    dispatcher.onResponse(result);
-    return result;
-  }
-
-  /**
    * Response error lifecycle handler
    */
   function onResponseError (response, body) {
     const result = formatResponseError(response, body);
     dispatcher.onError(result);
     return Promise.reject(result);
+  }
+
+  /**
+  * Response success lifecycle handler
+  */
+  function onResponseSuccess (response, body) {
+    const result = formatResponse(response, body);
+    dispatcher.onResponse(result);
+    return result;
   }
 
   /**
@@ -192,7 +130,7 @@ function create (store, action, config) {
 
     return config.fetch(
       url,
-      formatRequest()
+      options
     ).then(onServerResponse, onRequestError);
   };
 }
