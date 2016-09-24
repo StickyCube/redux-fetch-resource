@@ -16,10 +16,3 @@ test('It should append the endpoint action to apiRoot if provided', async t => {
   const [url] = fetch.firstCall.args;
   t.is(url, '/api/v1/foo');
 });
-
-test('It should handle extra slashes gracefully', async t => {
-  const store = createStoreWithOptions({ fetch, apiRoot: '/api/v1/' });
-  await store.dispatch(FetchResource('/bar'));
-  const [url] = fetch.firstCall.args;
-  t.is(url, '/api/v1/bar');
-});

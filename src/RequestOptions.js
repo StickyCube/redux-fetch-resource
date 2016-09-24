@@ -1,24 +1,36 @@
 import querystring from 'querystring';
+import isPlainObject from 'lodash/isPlainObject';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
 import warning from 'warning';
 import {normalizeMethod, isValidMethod} from './utils.js';
 
-function callOrDefault (value, defaultValue) {
-  if (isFunction(value)) {
-    value = value();
-  }
+/**
+ * Create a function which invokes the first argument with the redux store's getState
+ * @param  {object} store The redux store
+ * @return {function}     createInvoker~invoker
+ */
+function createInvoker (store) {
+  /**
+   * A function which will call it's first argument or return it
+   * @param  {any} value  A function to call or value to return
+   * @return {any}        The return value of value() when it is a function
+   */
+  const invoker = function (value) {
+    return isFunction(value)
+      ? value(store.getState)
+      : value;
+  };
 
-  return value || defaultValue;
+  return invoker;
 }
 
-function resolveHeaders (fromConfig, fromAction) {
-  const config = callOrDefault(fromConfig, {});
-  const action = callOrDefault(fromAction, {});
-  return { ...config, ...action };
-}
-
+/**
+ * Test whether a given http method supports a body in the request
+ * @param  {string} method
+ * @return {boolean}
+ */
 function methodSupportsRequestBody (method) {
   const normalized = normalizeMethod(method);
 
@@ -35,16 +47,33 @@ function methodSupportsRequestBody (method) {
  * @return {object} requestOptions
  */
 function resolve (store, action, config) {
+  const invoke = createInvoker(store);
   const request = {};
+
+  function resolveQuery () {
+    return querystring.stringify(
+      invoke(action.payload.options.query)
+    );
+  }
+
+  function resolveUrl () {
+    const root = config.apiRoot || '';
+    const path = action.payload.endpoint;
+    const query = resolveQuery();
+
+    return isEmpty(query)
+      ? `${root}${path}`
+      : `${root}${path}?${query}`;
+  }
 
   request.method = normalizeMethod(
     action.payload.options.method || config.defaultMethod
   );
 
-  request.headers = resolveHeaders(
-    config.headers,
-    action.payload.options.headers
-  );
+  request.headers = {
+    ...invoke(config.headers || {}),
+    ...invoke(action.payload.options.headers || {})
+  };
 
   warning(
     isValidMethod(request.method),
@@ -61,27 +90,20 @@ function resolve (store, action, config) {
 
   const shouldAddBody = (
     methodSupportsRequestBody(request.method) &&
-    !isEmpty(action.payload.options.body)
+    (
+      isFunction(action.payload.options.body) ||
+      isPlainObject(action.payload.options.body)
+    )
   );
 
   if (shouldAddBody) {
-    request.body = action.payload.options.body;
+    request.body = invoke(action.payload.options.body);
   }
 
-  // strip traling slashes
-  const root = config.apiRoot.replace(/\/+$/, '');
-
-  // strip leading and trailing slashes
-  const path = action.payload.endpoint.replace(/^\/+|\/+$/g, '');
-
-  // get the url query
-  const query = querystring.stringify(action.payload.options.query || {});
-
-  const url = query
-    ? `${root}/${path}?${query}`
-    : `${root}/${path}`;
-
-  return { url, options: request };
+  return {
+    url: resolveUrl(),
+    options: request
+  };
 }
 
 export default { resolve };

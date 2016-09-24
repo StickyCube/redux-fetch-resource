@@ -96,12 +96,9 @@ export function getConfigWithDefaults (options = {}) {
     `Expected option apiRoot to be a string gut got ${typeof options.apiRoot}`
   );
 
-  let apiRoot = options.apiRoot || '/';
-
   return {
     ...options,
     fetch,
-    defaultMethod,
-    apiRoot
+    defaultMethod
   };
 }
