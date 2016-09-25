@@ -1,30 +1,4 @@
-function internalType (name) {
-  return `@@REDUX_FETCH_RESOURCE/${name}`;
-}
-
-/**
- * Action dispatched by the FetchResource api point.
- * @type {string}
- */
-export const FETCH_RESOURCE = internalType('FETCH_RESOURCE');
-
-/**
- * Action dispatched on request and response error
- * @type {string}
- */
-export const FETCH_RESOURCE_ERROR = internalType('FETCH_RESOURCE_ERROR');
-
-/**
- * Action dispatched on request start
- * @type {string}
- */
-export const FETCH_RESOURCE_START = internalType('FETCH_RESOURCE_START');
-
-/**
- * Action dispatched on successful response received
- * @type {string}
- */
-export const FETCH_RESOURCE_END = internalType('FETCH_RESOURCE_END');
+import { FETCH_RESOURCE } from './ActionTypes.js';
 
 /**
  * Action creator for fetch middleware
@@ -37,7 +11,7 @@ export const FETCH_RESOURCE_END = internalType('FETCH_RESOURCE_END');
  * @param {string} [options.includeCookies='never']   Set cookie behaviour - valid options are 'never', 'always' or 'same-origin'
  * @param {(object|function)} [options.headers={}]    A map (or function returning a map) of additional headers to send with all requests
  */
-export const FetchResource = (endpoint, options = {}) => dispatch => {
+const FetchResource = (endpoint, options = {}) => dispatch => {
   return new Promise((resolve, reject) => {
     dispatch({
       type: FETCH_RESOURCE,
@@ -46,3 +20,5 @@ export const FetchResource = (endpoint, options = {}) => dispatch => {
     });
   });
 };
+
+export default FetchResource;

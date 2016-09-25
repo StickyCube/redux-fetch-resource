@@ -1,4 +1,4 @@
-import {FETCH_RESOURCE} from './InternalActions.js';
+import {FETCH_RESOURCE} from './ActionTypes.js';
 import RequestDelegate from './RequestDelegate.js';
 import {getConfigWithDefaults} from './utils.js';
 

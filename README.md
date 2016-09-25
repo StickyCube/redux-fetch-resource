@@ -19,10 +19,7 @@ npm i --save redux-fetch-resource redux-thunk
 * ~~Handle queries~~
 * ~~Make request body/query callable~~
 * ~~Handle cookies/jwt~~
-* Make api for `createEndpoint`
-  - creates an action creator for an endpoint
-  - mergable params
-  - move most action options here
+* ~~Make api for `createEndpoint`~~
 * Add lifecycle hooks
 * Customizable response parsing
 * Customizable error filtering
