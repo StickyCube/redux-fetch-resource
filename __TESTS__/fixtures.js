@@ -1,4 +1,3 @@
-import url from 'url';
 import http from 'http';
 import sinon from 'sinon';
 import noop from 'lodash/noop';
@@ -7,12 +6,15 @@ import jsdom from 'jsdom';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import FetchResourceMiddleware from '../src/index.js';
+import cookieParser from 'cookie-parser';
 
 const FETCH_POLYFILL = 'https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js';
 const PORT = 9009;
 
 function createExpressApp () {
   const app = express();
+
+  app.use(cookieParser());
 
   app.all('/echo/:prop', function (req, res) {
     const { [req.params.prop]: prop } = req;
@@ -28,23 +30,16 @@ function createExpressApp () {
   return app;
 }
 
-function getUrl (hostname = 'localhost') {
-  return url.format({
-    protocol: 'http:',
-    hostname,
-    port: PORT
-  });
-}
-
-function createDom (hostname) {
+function createDom (options) {
   return new Promise((resolve, reject) => {
-    jsdom.env(
-      getUrl(hostname),
-      [FETCH_POLYFILL],
-      (err, window) => err
-        ? reject(err)
-        : resolve({ window })
-    );
+    jsdom.env({
+      url: `http://localhost:${PORT}`,
+      scripts: [FETCH_POLYFILL],
+      done: (err, window) => err
+          ? reject(err)
+          : resolve({ window }),
+      ...options
+    });
   });
 }
 
@@ -108,9 +103,9 @@ export const env = {
     global.window = window;
   },
 
-  mount: async function (hostname) {
+  mount: async function (options = {}) {
     const {server} = await createServer(this.app);
-    const {window} = await createDom(hostname);
+    const {window} = await createDom(options);
 
     this.server = server;
     this.window = window;

@@ -96,9 +96,20 @@ export function getConfigWithDefaults (options = {}) {
     `Expected option apiRoot to be a string gut got ${typeof options.apiRoot}`
   );
 
+  warning(
+    options.includeCookies == null ||
+    options.includeCookies === 'never' ||
+    options.includeCookies === 'same-origin' ||
+    options.includeCookies === 'always',
+    `Expected option includeCookies to be one of 'never', 'same-origin' or 'always' but got ${options.includeCookies}`
+  );
+
+  let includeCookies = options.includeCookies || 'never';
+
   return {
     ...options,
     fetch,
-    defaultMethod
+    defaultMethod,
+    includeCookies
   };
 }

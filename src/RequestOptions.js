@@ -42,6 +42,18 @@ function methodSupportsRequestBody (method) {
   );
 }
 
+function getCookiesOption (mode) {
+  switch (mode) {
+    case 'always':
+      return 'include';
+    case 'same-origin':
+      return 'same-origin';
+    case 'never':
+    default:
+      return;
+  }
+}
+
 /**
  * Creates the request options and url which are passed to fetch
  * @return {object} requestOptions
@@ -74,6 +86,14 @@ function resolve (store, action, config) {
     ...invoke(config.headers || {}),
     ...invoke(action.payload.options.headers || {})
   };
+
+  const cookies = getCookiesOption(
+    action.payload.options.includeCookies || config.includeCookies
+  );
+
+  if (cookies) {
+    request.credentials = cookies;
+  }
 
   warning(
     isValidMethod(request.method),
