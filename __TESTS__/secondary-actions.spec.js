@@ -209,3 +209,77 @@ test.describe('Custom secondary actions -', test => {
     });
   });
 });
+
+test.describe('secondary actions with meta option', test => {
+  const REQUEST_START = 'REQUEST_START';
+  const REQUEST_ERROR = 'REQUEST_ERROR';
+  const RESPONSE_SUCCESS = 'RESPONSE_SUCCESS';
+  const RESPONSE_ERROR = 'RESPONSE_ERROR';
+
+  function createReducer (type) {
+    return function (state = { meta: null }, action) {
+      switch (action.type) {
+        case type:
+          return { meta: action.meta };
+        default:
+          return state;
+      }
+    };
+  }
+
+  test('It should send meta object with the action when the request starts', async t => {
+    const reducer = createReducer(REQUEST_START);
+    const store = createStoreWithOptions(reducer);
+
+    t.plan(2);
+    t.deepEqual(store.getState(), { meta: null });
+
+    await store.dispatch(FetchResource('/status/200', { startType: REQUEST_START, meta: { foo: 1 } }));
+
+    t.deepEqual(store.getState(), { meta: { foo: 1 } });
+  });
+
+  test('It should send meta object with the action when the request succeeds', async t => {
+    const reducer = createReducer(RESPONSE_SUCCESS);
+    const store = createStoreWithOptions(reducer);
+
+    t.plan(2);
+    t.deepEqual(store.getState(), { meta: null });
+
+    await store.dispatch(FetchResource('/status/200', { endType: RESPONSE_SUCCESS, meta: { foo: 2 } }));
+
+    t.deepEqual(store.getState(), { meta: { foo: 2 } });
+  });
+
+  test('It should send meta object with the action when there is a request error', async t => {
+    const reducer = createReducer(REQUEST_ERROR);
+    const store = createStoreWithOptions(reducer, { fetch: mocks.errorFetch() });
+
+    t.plan(3);
+    t.deepEqual(store.getState(), { meta: null });
+
+    try {
+      await store.dispatch(FetchResource('/status/500', { errorType: REQUEST_ERROR, meta: { foo: 3 } }));
+      t.fail();
+    } catch (e) {
+      t.is(e.name, 'RequestError');
+      t.deepEqual(store.getState(), { meta: { foo: 3 } });
+    }
+  });
+
+  test('It should send meta object with the action when there is a response error', async t => {
+    const reducer = createReducer(RESPONSE_ERROR);
+    const store = createStoreWithOptions(reducer);
+
+    t.plan(3);
+    t.deepEqual(store.getState(), { meta: null });
+
+    try {
+      await store.dispatch(FetchResource('/status/500', { errorType: RESPONSE_ERROR, meta: { foo: 4 } }));
+      t.fail();
+    } catch (e) {
+      t.is(e.name, 'ResponseError');
+      t.deepEqual(store.getState(), { meta: { foo: 4 } });
+    }
+  });
+});

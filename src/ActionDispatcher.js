@@ -13,6 +13,8 @@ import {
  * @return {[type]}        [description]
  */
 function create (store, action, config) {
+  const {options} = action.payload;
+
   /**
    * Safely dispatch an action to the redux store
    * @param  {function} [actionCreator]   An action creator
@@ -30,9 +32,17 @@ function create (store, action, config) {
    * @return {function}       An Action creator
    */
   function getActionCreator (type) {
-    return isString(type)
-      ? payload => ({ type, payload })
-      : null;
+    if (!isString(type)) {
+      return null;
+    }
+
+    return function (payload) {
+      return {
+        type,
+        payload,
+        meta: options.meta || {}
+      };
+    };
   }
 
   /**
@@ -60,19 +70,19 @@ function create (store, action, config) {
     onStart: createDispatcherForTypes(
       FETCH_RESOURCE_START,
       config.startType,
-      action.payload.options.startType
+      options.startType
     ),
 
     onError: createDispatcherForTypes(
       FETCH_RESOURCE_ERROR,
       config.errorType,
-      action.payload.options.errorType
+      options.errorType
     ),
 
     onResponse: createDispatcherForTypes(
       FETCH_RESOURCE_END,
       config.endType,
-      action.payload.options.endType
+      options.endType
     )
   };
 
