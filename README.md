@@ -22,6 +22,6 @@ npm i --save redux-fetch-resource redux-thunk
 * ~~Make api for `createEndpoint`~~
 * ~~Add lifecycle hooks~~
 * Customizable response parsing
-* Customizable error filtering
+* ~~Customizable error filtering~~
 * Documentation!
 * Examples

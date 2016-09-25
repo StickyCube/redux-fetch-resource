@@ -122,9 +122,9 @@ function create (store, action, config) {
   function onServerResponse (response) {
     return response.text()
       .then(safeParse)
-      .then(body => response.ok
-        ? onResponseSuccess(response, body)
-        : onResponseError(response, body)
+      .then(body => config.isResponseError(response, body)
+        ? onResponseError(response, body)
+        : onResponseSuccess(response, body)
       );
   }
 

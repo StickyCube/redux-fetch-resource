@@ -1,5 +1,6 @@
 import warning from 'warning';
 import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
 
 /**
  * Array of valid, supported HTTP methods
@@ -106,10 +107,21 @@ export function getConfigWithDefaults (options = {}) {
 
   let includeCookies = options.includeCookies || 'never';
 
+  warning(
+    options.isResponseError == null ||
+    isFunction(options.isResponseError),
+    `Expected option isResponseError to be a function but got ${typeof options.isResponseError}`
+  );
+
+  let isResponseError = isFunction(options.isResponseError)
+    ? options.isResponseError
+    : response => !response.ok;
+
   return {
     ...options,
     fetch,
     defaultMethod,
-    includeCookies
+    includeCookies,
+    isResponseError
   };
 }
