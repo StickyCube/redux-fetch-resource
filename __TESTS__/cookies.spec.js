@@ -1,12 +1,13 @@
+import {before, after} from 'ava';
 import test from 'ava-spec';
 import {env, createStoreWithOptions} from './fixtures.js';
 import {FetchResource} from '../src/index.js';
 
-test.before(async t => {
+before(async t => {
   await env.mount({ cookie: 'Hello=World; Expires=Never;' });
 });
 
-test.after(async t => {
+after.always(async t => {
   await env.unmount();
 });
 

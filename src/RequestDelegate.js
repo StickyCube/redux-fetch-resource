@@ -1,4 +1,5 @@
 import ActionDispatcher from './ActionDispatcher.js';
+import LifecycleHooks from './LifecycleHooks.js';
 import RequestOptions from './RequestOptions.js';
 
 /**
@@ -31,6 +32,7 @@ function mapHeadersToObject (headers) {
 
 function create (store, action, config) {
   const dispatcher = ActionDispatcher.create(store, action, config);
+  const hooks = LifecycleHooks.create(store, action, config);
   const { url, options } = RequestOptions.resolve(store, action, config);
 
   /**
@@ -77,7 +79,9 @@ function create (store, action, config) {
    * Request start lifecycle handler
    */
   function onRequestDidStart () {
-    dispatcher.onStart({ url });
+    const payload = { url, ...options };
+    dispatcher.onStart(payload);
+    hooks.onStart(payload);
   }
 
   /**
@@ -86,6 +90,7 @@ function create (store, action, config) {
   function onRequestError (error) {
     const result = formatRequestError(error);
     dispatcher.onError(result);
+    hooks.onError(result);
     return Promise.reject(result);
   }
 
@@ -95,6 +100,7 @@ function create (store, action, config) {
   function onResponseError (response, body) {
     const result = formatResponseError(response, body);
     dispatcher.onError(result);
+    hooks.onError(result);
     return Promise.reject(result);
   }
 
@@ -104,6 +110,7 @@ function create (store, action, config) {
   function onResponseSuccess (response, body) {
     const result = formatResponse(response, body);
     dispatcher.onResponse(result);
+    hooks.onResponse(result);
     return result;
   }
 

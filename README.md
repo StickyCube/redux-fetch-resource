@@ -20,7 +20,8 @@ npm i --save redux-fetch-resource redux-thunk
 * ~~Make request body/query callable~~
 * ~~Handle cookies/jwt~~
 * ~~Make api for `createEndpoint`~~
-* Add lifecycle hooks
+* ~~Add lifecycle hooks~~
 * Customizable response parsing
 * Customizable error filtering
 * Documentation!
+* Examples

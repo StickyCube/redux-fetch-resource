@@ -16,7 +16,7 @@ before(async t => {
 });
 
 after.always(async t => {
-  return await env.unmount();
+  await env.unmount();
 });
 
 METHODS.forEach(m => {

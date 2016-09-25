@@ -21,7 +21,7 @@ before(async t => {
 });
 
 after.always(async t => {
-  return await env.unmount();
+  await env.unmount();
 });
 
 test.describe('Internal secondary actions -', test => {

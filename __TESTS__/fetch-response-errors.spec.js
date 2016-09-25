@@ -11,7 +11,7 @@ before(async t => {
 });
 
 after.always(async t => {
-  return await env.unmount();
+  await env.unmount();
 });
 
 test('It should resolve correctly when asking for 200', async t => {
