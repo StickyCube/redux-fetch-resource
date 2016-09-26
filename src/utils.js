@@ -56,7 +56,7 @@ export function getConfigWithDefaults (options = {}) {
   );
 
   // prefer the implementation passed in options over window
-  let fetch = options.fetch || window.fetch;
+  let fetch = options.fetch || window.fetch.bind(window);
 
   /**
    * Assert that options.defaultMethod is valid and normalized if it has been
