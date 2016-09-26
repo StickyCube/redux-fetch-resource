@@ -74,9 +74,9 @@ export function getConfigWithDefaults (options = {}) {
   let defaultMethod = options.defaultMethod || 'GET';
 
   /**
-   * Assert that startType, endType and errorType are strings or Symbols
+   * Assert that startType, successType and errorType are strings or Symbols
    */
-  'startType endType errorType'.split(' ').forEach(elm => {
+  'startType successType errorType'.split(' ').forEach(elm => {
     warning(
       (
         options[elm] == null ||

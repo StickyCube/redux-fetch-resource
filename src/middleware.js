@@ -11,7 +11,7 @@ import {getConfigWithDefaults} from './utils.js';
  * @param  {function} [option.onEnd=noop]             A function which will be called when the request is Successful
  * @param  {function} [option.onError=noop]           A function which will be called when there is a request/response error
  * @param  {string)} [options.startType]              An addtional secondary action to dispatch before a request starts
- * @param  {string} [options.endType]                 An addtional secondary action to dispatch When a successful response is received
+ * @param  {string} [options.successType]                 An addtional secondary action to dispatch When a successful response is received
  * @param  {string} [options.errorType]               An addtional secondary action to dispatch When a request/response error is encountered
  * @param  {string} [options.apiRoot='/']             Sets a base patname or url for all endpoints
  * @param  {string} [options.includeCookies='never']  Set cookie behaviour - valid options are 'never', 'always' or 'same-origin'

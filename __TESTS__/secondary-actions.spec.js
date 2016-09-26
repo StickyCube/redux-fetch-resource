@@ -103,7 +103,7 @@ test.describe('Custom secondary actions -', test => {
 
     test('It should dispatch when the request succeeds', async t => {
       const reducer = createSinglePropertyReducer(RESPONSE_SUCCESS);
-      const store = createStoreWithOptions(reducer, { endType: RESPONSE_SUCCESS });
+      const store = createStoreWithOptions(reducer, { successType: RESPONSE_SUCCESS });
 
       t.plan(2);
       t.deepEqual(store.getState(), { passed: false });
@@ -171,7 +171,7 @@ test.describe('Custom secondary actions -', test => {
       t.plan(2);
       t.deepEqual(store.getState(), { passed: false });
 
-      await store.dispatch(FetchResource('/status/200', { endType: RESPONSE_SUCCESS }));
+      await store.dispatch(FetchResource('/status/200', { successType: RESPONSE_SUCCESS }));
 
       t.deepEqual(store.getState(), { passed: true });
     });
@@ -246,7 +246,7 @@ test.describe('secondary actions with meta option', test => {
     t.plan(2);
     t.deepEqual(store.getState(), { meta: null });
 
-    await store.dispatch(FetchResource('/status/200', { endType: RESPONSE_SUCCESS, meta: { foo: 2 } }));
+    await store.dispatch(FetchResource('/status/200', { successType: RESPONSE_SUCCESS, meta: { foo: 2 } }));
 
     t.deepEqual(store.getState(), { meta: { foo: 2 } });
   });

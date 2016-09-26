@@ -81,8 +81,8 @@ function create (store, action, config) {
 
     onResponse: createDispatcherForTypes(
       FETCH_RESOURCE_END,
-      config.endType,
-      options.endType
+      config.successType,
+      options.successType
     )
   };
 
