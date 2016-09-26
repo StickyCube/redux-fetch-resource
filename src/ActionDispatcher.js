@@ -64,7 +64,7 @@ function create (store, action, config) {
    * @type {object}
    * @prop {function} onStart Dispateches actions when the request starts
    * @prop {function} onError Dispateches actions when the request encounters an error
-   * @prop {function} onEnd   Dispateches actions when the response is received
+   * @prop {function} onSuccess   Dispateches actions when the response is received
    */
   const dispatcher = {
     onStart: createDispatcherForTypes(

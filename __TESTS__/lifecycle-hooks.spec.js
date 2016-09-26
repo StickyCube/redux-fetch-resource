@@ -14,27 +14,27 @@ after.always(async t => {
 
 test.describe('Middleware option -', test => {
   const onStart = sinon.stub();
-  const onEnd = sinon.stub();
+  const onSuccess = sinon.stub();
   const onError = sinon.stub();
-  const options = { onStart, onEnd, onError };
+  const options = { onStart, onSuccess, onError };
 
   let store = null;
 
   test.beforeEach(t => {
     onStart.reset();
-    onEnd.reset();
+    onSuccess.reset();
     onError.reset();
 
     store = createStoreWithOptions(options);
   });
 
-  test('It should respect the onEnd hook', async t => {
+  test('It should respect the onSuccess hook', async t => {
     t.plan(3);
 
     await store.dispatch(FetchResource('/status/200'));
 
     t.is(onStart.called, true);
-    t.is(onEnd.called, true);
+    t.is(onSuccess.called, true);
     t.is(onError.called, false);
   });
 
@@ -46,7 +46,7 @@ test.describe('Middleware option -', test => {
       t.fail();
     } catch (err) {
       t.is(onStart.called, true);
-      t.is(onEnd.called, false);
+      t.is(onSuccess.called, false);
       t.is(onError.called, true);
     }
   });
@@ -54,27 +54,27 @@ test.describe('Middleware option -', test => {
 
 test.describe('Action option -', test => {
   const onStart = sinon.stub();
-  const onEnd = sinon.stub();
+  const onSuccess = sinon.stub();
   const onError = sinon.stub();
-  const options = { onStart, onEnd, onError };
+  const options = { onStart, onSuccess, onError };
 
   let store = null;
 
   test.beforeEach(t => {
     onStart.reset();
-    onEnd.reset();
+    onSuccess.reset();
     onError.reset();
 
     store = createStoreWithOptions();
   });
 
-  test('It should respect the onEnd hook', async t => {
+  test('It should respect the onSuccess hook', async t => {
     t.plan(3);
 
     await store.dispatch(FetchResource('/status/200', options));
 
     t.is(onStart.called, true);
-    t.is(onEnd.called, true);
+    t.is(onSuccess.called, true);
     t.is(onError.called, false);
   });
 
@@ -86,7 +86,7 @@ test.describe('Action option -', test => {
       t.fail();
     } catch (err) {
       t.is(onStart.called, true);
-      t.is(onEnd.called, false);
+      t.is(onSuccess.called, false);
       t.is(onError.called, true);
     }
   });

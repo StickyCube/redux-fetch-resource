@@ -11,7 +11,7 @@ import {getConfigWithDefaults} from './utils.js';
  * @param  {function} [options.formatRequestError]    A function to format a request error payload
  * @param  {function} [options.isResponseError]       A function to determine whether a response should be condidered an error
  * @param  {function} [options.onStart=noop]          A function which will be called when the request starts
- * @param  {function} [option.onEnd=noop]             A function which will be called when the request is Successful
+ * @param  {function} [option.onSuccess=noop]             A function which will be called when the request is Successful
  * @param  {function} [option.onError=noop]           A function which will be called when there is a request/response error
  * @param  {string)} [options.startType]              An addtional secondary action to dispatch before a request starts
  * @param  {string} [options.successType]                 An addtional secondary action to dispatch When a successful response is received

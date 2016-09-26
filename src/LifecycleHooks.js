@@ -16,7 +16,7 @@ function create (store, action, config) {
 
   return {
     onStart: createInvokableForKey('onStart'),
-    onResponse: createInvokableForKey('onEnd'),
+    onResponse: createInvokableForKey('onSuccess'),
     onError: createInvokableForKey('onError')
   };
 }
