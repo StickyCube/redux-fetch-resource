@@ -23,10 +23,10 @@ test('It should reject with an error when status code is >= 300', async t => {
   try {
     await store.dispatch(FetchResource('/status/302'));
     t.fail();
-  } catch (error) {
-    t.is(error.isError, true);
-    t.is(error.statusCode, 302);
-    t.is(error.name, 'ResponseError');
+  } catch (result) {
+    t.is(typeof result.error, 'object');
+    t.is(result.statusCode, 302);
+    t.is(result.name, 'ResponseError');
   }
 });
 
@@ -38,8 +38,9 @@ test('It should reject with request error when fetch fails', async t => {
   try {
     await store.dispatch(FetchResource('/status/200'));
     t.fail();
-  } catch (error) {
-    t.is(error.name, 'RequestError');
-    t.is(error.isError, true);
+  } catch (result) {
+    t.is(typeof result.error, 'object');
+    t.is(result.statusCode, 0);
+    t.is(result.name, 'RequestError');
   }
 });

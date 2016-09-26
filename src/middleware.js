@@ -6,6 +6,9 @@ import {getConfigWithDefaults} from './utils.js';
  * Creates a redux middleware function for making REST requests
  * @param  {object} options                           Options to configure the behaviour
  * @param  {string} [options.defaultMethod='GET']     The default method for requests
+ * @param  {function} [options.formatResponse]        A function to format a succesful response payload
+ * @param  {function} [options.formatResponseError]   A function to format a response error payload
+ * @param  {function} [options.formatRequestError]    A function to format a request error payload
  * @param  {function} [options.isResponseError]       A function to determine whether a response should be condidered an error
  * @param  {function} [options.onStart=noop]          A function which will be called when the request starts
  * @param  {function} [option.onEnd=noop]             A function which will be called when the request is Successful
