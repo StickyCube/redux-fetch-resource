@@ -24,4 +24,4 @@ export const FETCH_RESOURCE_START = internalType('FETCH_RESOURCE_START');
  * Action dispatched on successful response received
  * @type {string}
  */
-export const FETCH_RESOURCE_END = internalType('FETCH_RESOURCE_END');
+export const FETCH_RESOURCE_SUCCESS = internalType('FETCH_RESOURCE_SUCCESS');

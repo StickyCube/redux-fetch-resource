@@ -30,10 +30,12 @@
 
 {% for entry in subsection.entries %}
 
+{% if entry.title %}
 {% if entry.is_main %}
 #### {{entry.title}}
 {% else %}
 ##### {{entry.title}}
+{% endif %}
 {% endif %}
 
 {{entry.description}}

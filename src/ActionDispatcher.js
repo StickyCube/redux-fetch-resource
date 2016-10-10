@@ -3,7 +3,7 @@ import isFunction from 'lodash/isFunction';
 import {
   FETCH_RESOURCE_ERROR,
   FETCH_RESOURCE_START,
-  FETCH_RESOURCE_END } from './ActionTypes.js';
+  FETCH_RESOURCE_SUCCESS } from './ActionTypes.js';
 
 /**
  * Create an action dispatcher. used to dispatch secondary actions to the redux store
@@ -80,7 +80,7 @@ function create (store, action, config) {
     ),
 
     onResponse: createDispatcherForTypes(
-      FETCH_RESOURCE_END,
+      FETCH_RESOURCE_SUCCESS,
       config.successType,
       options.successType
     )

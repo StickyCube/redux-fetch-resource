@@ -1,0 +1,37 @@
+{
+  "summary": "These are the built in actions which are dispatched with all requests",
+  "sections": [
+    {
+      "title": "Action Types",
+      "subsections": [
+        {
+          "title": "`FETCH_RESOURCE_START`",
+          "entries": [
+            {
+              "example": "api_snippet_actions_start.md",
+              "description": "Dispatched before any request starts"
+            }
+          ]
+        },
+        {
+          "title": "`FETCH_RESOURCE_ERROR`",
+          "entries": [
+            {
+              "example": "api_snippet_actions_error.md",
+              "description": "Dispatched on any request/response error"
+            }
+          ]
+        },
+        {
+          "title": "`FETCH_RESOURCE_SUCCESS`",
+          "entries": [
+            {
+              "example": "api_snippet_actions_success.md",
+              "description": "Dispatched on any successful response"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

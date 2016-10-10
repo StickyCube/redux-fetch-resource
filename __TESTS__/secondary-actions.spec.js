@@ -6,7 +6,7 @@ import {
   FetchResource,
   FETCH_RESOURCE_ERROR,
   FETCH_RESOURCE_START,
-  FETCH_RESOURCE_END } from '../src/index.js';
+  FETCH_RESOURCE_SUCCESS } from '../src/index.js';
 
 function createSinglePropertyReducer (type) {
   return combineReducers({
@@ -38,7 +38,7 @@ test.describe('Internal secondary actions -', test => {
   });
 
   test('It should dispatch when the request succeeds', async t => {
-    const reducer = createSinglePropertyReducer(FETCH_RESOURCE_END);
+    const reducer = createSinglePropertyReducer(FETCH_RESOURCE_SUCCESS);
     const store = createStoreWithOptions(reducer);
 
     t.plan(2);
