@@ -19,7 +19,7 @@ export default function bindEndpointActionCreator (url, options) {
    * An action creator with the bound endpoint. All options to FetchResource can be used along with:
    * @param {object} [option.params={}] A map of params to merge with the endpoint
    */
-  const FetchActionCreator = function (opts = {}) {
+  const EndpointActionCreator = function (opts = {}) {
     const { params, ...others } = opts;
 
     return FetchResource(
@@ -31,5 +31,5 @@ export default function bindEndpointActionCreator (url, options) {
     );
   };
 
-  return FetchActionCreator;
+  return EndpointActionCreator;
 }
