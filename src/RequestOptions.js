@@ -44,7 +44,7 @@ function methodSupportsRequestBody (method) {
 
 function getCookiesOption (mode) {
   if (mode === 'cors') {
-    return 'include'
+    return 'include';
   }
 
   if (mode === true) {

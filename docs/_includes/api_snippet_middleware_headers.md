@@ -38,7 +38,7 @@ export const createStore(
         'Content-Type': 'application/json',
         'Accept': '*'
       }
-    })
+    });
   )
 );
 

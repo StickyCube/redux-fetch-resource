@@ -1,4 +1,3 @@
-import isFunction from 'lodash/isFunction';
 
 /**
  * Maps an instance of Headers to a plain javascript object
@@ -33,7 +32,7 @@ function formatResponse (request, response, body) {
 /**
  * Default formatter for response errors
  */
-function  formatResponseError (request, response, body) {
+function formatResponseError (request, response, body) {
   return {
     url: request.url,
     endpoint: request.endpoint,

@@ -1,18 +1,18 @@
 [
   {
     "label": "Getting Started",
-    "permalink": "/getting-started"
+    "permalink": "/redux-fetch-resource/getting-started"
   },
 
   {
     "label": "API",
     "sections": [
       {
-        "permalink": "/api/middleware/",
+        "permalink": "/redux-fetch-resource/api/middleware/",
         "label": "middleware"
       },
       {
-        "permalink": "/api/bindEndpointActionCreator/",
+        "permalink": "/redux-fetch-resource/api/bindEndpointActionCreator/",
         "label": "bindEndpointActionCreator"
       },
       {
