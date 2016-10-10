@@ -57,7 +57,7 @@ function serializeBody (data) {
     return data;
   }
 
-  return JSON.stringify(data)
+  return JSON.stringify(data);
 }
 
 /**
