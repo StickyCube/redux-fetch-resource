@@ -4,9 +4,9 @@ email: will.jk01@gmail.com
 
 description: A complete solution for making REST requests in React Redux applications.
 
-baseurl: ""
+baseurl: '/redux-fetch-resource'
 
-url: http://example.com
+url: https://stickycube.github.io
 
 github_username:  stickycube
 
