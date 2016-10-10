@@ -52,6 +52,14 @@ function getCookiesOption (mode) {
   }
 }
 
+function serializeBody (data) {
+  if (isString(data)) {
+    return data;
+  }
+
+  return JSON.stringify(data)
+}
+
 /**
  * Creates the request options and url which are passed to fetch
  * @return {object} requestOptions
@@ -117,7 +125,11 @@ function resolve (store, action, config) {
   );
 
   if (shouldAddBody) {
-    request.body = invoke(action.payload.options.body);
+    const body = invoke(action.payload.options.body);
+
+    if (body) {
+      request.body = serializeBody(body);
+    }
   }
 
   return {

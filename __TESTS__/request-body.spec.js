@@ -22,7 +22,7 @@ test('It should make the request using the correct body', async t => {
     body: { hero: true, egg: 'runny' }
   }));
   const {body} = fetch.firstCall.args[1];
-  t.deepEqual(body, { hero: true, egg: 'runny' });
+  t.deepEqual(body, '{\"hero\":true,\"egg\":\"runny\"}');
 });
 
 test('It should accept a function as the body option with getState', async t => {
@@ -36,5 +36,5 @@ test('It should accept a function as the body option with getState', async t => 
     }
   }));
   const {body} = fetch.firstCall.args[1];
-  t.deepEqual(body, { items: ['foo', 'bar', 'baz'], egg: 'runny' });
+  t.deepEqual(body, '{\"items\":[\"foo\",\"bar\",\"baz\"],\"egg\":\"runny\"}');
 });
