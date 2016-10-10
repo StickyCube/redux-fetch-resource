@@ -2,7 +2,7 @@
 layout: index-page
 title: API Reference
 header: middleware
-permalink: /api/middleware
+permalink: /api-middleware
 ---
 
 {%

@@ -2,7 +2,7 @@
 layout: index-page
 title: API Reference
 header: bindEndpointActionCreator
-permalink: /api/bindEndpointActionCreator
+permalink: /api-bind-endpoint-action-creator
 ---
 
 {%

@@ -8,11 +8,11 @@
     "label": "API",
     "sections": [
       {
-        "permalink": "/redux-fetch-resource/api/middleware/",
+        "permalink": "/redux-fetch-resource/api-middleware",
         "label": "middleware"
       },
       {
-        "permalink": "/redux-fetch-resource/api/bindEndpointActionCreator/",
+        "permalink": "/redux-fetch-resource/api-bind-endpoint-action-creator",
         "label": "bindEndpointActionCreator"
       },
       {
