@@ -3,6 +3,14 @@
   "version": "0.0.0-semantic-versioning",
   "description": "A Complete solution for making Requests in redux applications",
   "main": "dist/lib/index.js",
+  "keywords": [
+    "react",
+    "redux",
+    "api",
+    "ajax",
+    "resource",
+    "middleware"
+  ],
   "scripts": {
     "commit": "git-cz",
     "start": "npm run test:watch",
@@ -60,6 +68,7 @@
     "type": "git",
     "url": "https://github.com/StickyCube/redux-fetch-resource.git"
   },
+  "bugs": "https://github.com/StickyCube/redux-fetch-resource/issues",
   "dependencies": {
     "lodash": "4.16.0",
     "url-pattern": "1.0.1",
