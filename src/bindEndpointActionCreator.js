@@ -13,9 +13,8 @@ import FetchResource from './FetchResource.js';
  * @param  {options} options        The default options for FetchResource
  * @return {function} actionCreator An action creator for the given endpoint and options
  */
-export default function createEndpoint (url, options) {
+export default function bindEndpointActionCreator (url, options) {
   const pattern = new UrlPattern(url);
-
   /**
    * An action creator with the bound endpoint. All options to FetchResource can be used along with:
    * @param {object} [option.params={}] A map of params to merge with the endpoint

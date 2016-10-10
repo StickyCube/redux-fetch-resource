@@ -99,13 +99,12 @@ export function getConfigWithDefaults (options = {}) {
 
   warning(
     options.includeCookies == null ||
-    options.includeCookies === 'never' ||
-    options.includeCookies === 'same-origin' ||
-    options.includeCookies === 'always',
-    `Expected option includeCookies to be one of 'never', 'same-origin' or 'always' but got ${options.includeCookies}`
+    typeof options.includeCookies === 'boolean' ||
+    options.includeCookies === 'cors',
+    `Expected option includeCookies to be one of true, false or 'cors' but got ${options.includeCookies}`
   );
 
-  let includeCookies = options.includeCookies || 'never';
+  let includeCookies = options.includeCookies || false;
 
   warning(
     options.isResponseError == null ||

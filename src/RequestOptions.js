@@ -43,14 +43,12 @@ function methodSupportsRequestBody (method) {
 }
 
 function getCookiesOption (mode) {
-  switch (mode) {
-    case 'always':
-      return 'include';
-    case 'same-origin':
-      return 'same-origin';
-    case 'never':
-    default:
-      return;
+  if (mode === 'cors') {
+    return 'include'
+  }
+
+  if (mode === true) {
+    return 'same-origin';
   }
 }
 
@@ -88,7 +86,9 @@ function resolve (store, action, config) {
   };
 
   const cookies = getCookiesOption(
-    action.payload.options.includeCookies || config.includeCookies
+    typeof action.payload.options.includeCookies !== 'undefined'
+      ? action.payload.options.includeCookies
+      : config.includeCookies
   );
 
   if (cookies) {

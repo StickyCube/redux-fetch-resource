@@ -19,25 +19,25 @@ test.skip('It should never send cookies by default', async t => {
 });
 
 test('It should send cookies when option is same-origin [middleware option]', async t => {
-  const store = createStoreWithOptions({ includeCookies: 'same-origin' });
+  const store = createStoreWithOptions({ includeCookies: true });
   const response = await store.dispatch(FetchResource('/echo/cookies'));
   t.deepEqual(response.body.cookies, { Hello: 'World' });
 });
 
 test('It should send cookies when option is same-origin [action option]', async t => {
   const store = createStoreWithOptions();
-  const response = await store.dispatch(FetchResource('/echo/cookies', { includeCookies: 'same-origin' }));
+  const response = await store.dispatch(FetchResource('/echo/cookies', { includeCookies: true }));
   t.deepEqual(response.body.cookies, { Hello: 'World' });
 });
 
 test('It should send cookies when option is always [middleware option]', async t => {
-  const store = createStoreWithOptions({ includeCookies: 'always' });
+  const store = createStoreWithOptions({ includeCookies: 'cors' });
   const response = await store.dispatch(FetchResource('/echo/cookies'));
   t.deepEqual(response.body.cookies, { Hello: 'World' });
 });
 
 test('It should send cookies when option is always [action option]', async t => {
   const store = createStoreWithOptions();
-  const response = await store.dispatch(FetchResource('/echo/cookies', { includeCookies: 'always' }));
+  const response = await store.dispatch(FetchResource('/echo/cookies', { includeCookies: 'cors' }));
   t.deepEqual(response.body.cookies, { Hello: 'World' });
 });

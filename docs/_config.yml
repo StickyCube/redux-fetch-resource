@@ -1,0 +1,20 @@
+title: Redux Fetch Resource
+
+email: will.jk01@gmail.com
+
+description: A complete solution for making REST requests in React Redux applications.
+
+baseurl: ""
+
+url: http://example.com
+
+github_username:  stickycube
+
+# Build settings
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable: true
+
+sass:
+  sass_dir: css

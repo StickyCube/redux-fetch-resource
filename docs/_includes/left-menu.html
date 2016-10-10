@@ -1,0 +1,30 @@
+<h3 class="Heading" style="padding-left:15px;" >Menu</h3>
+<ul class="List" >
+  {% for item in site.data.sections %}
+  {% assign item_base_class = 'List__item' %}
+  {% if item.permalink and page.url contains item.permalink %}
+  <li class="{{ item_base_class }} List__item--selected" >
+  {% else %}
+  <li class="{{ item_base_class }}" >
+  {% endif %}
+    {% if item.permalink %}
+    <a href="{{ item.permalink }}" >{{ item.label }}</a>
+    {% else %}
+    <span>{{ item.label }}</span>
+    {% endif %}
+  </li>
+
+  {% for subitem in item.sections %}
+  {% assign sub_base_class = 'List__item List__item--indented' %}
+  {% if page.url contains subitem.permalink %}
+  <li class="{{ sub_base_class }} List__item--selected" >
+  {% else %}
+  <li class="{{ sub_base_class }}" >
+  {% endif %}
+    <a href="{{ subitem.permalink }}" >{{ subitem.label }}</a>
+  </li>
+
+  {% endfor %}
+
+  {% endfor %}
+</ul>

@@ -1,0 +1,109 @@
+{
+  "summary": "
+    You must add the middleware to your redux store.
+    We rely on [redux-thunk](https://github.com/gaearon/redux-thunk) so you'll need to install it as a peer dependency.
+    `npm i --save redux-thunk`
+  ",
+  "sections": [
+    {
+      "title": "`ReduxFetchResource(config: ?object)`",
+      "subsections": [
+        {
+          "title": "Arguments",
+          "entries": [
+            {
+              "title": "`config` (object)",
+              "is_main": true,
+              "description": "Options to control behaviour."
+            },
+
+           {
+             "title": "`config.defaultMethod` (string)",
+             "example": "api_snippet_middleware_defaultMethod.md",
+             "description": "Set the default method for all REST requests",
+             "points": [
+               "default - `'GET'`"
+             ]
+           },
+
+           {
+             "title": "`config.isResponseError(response, body)` (function)",
+             "example": "api_snippet_middleware_isResponseError.md",
+             "description": "a function that determines whether the response should be considered an error or not.",
+             "points": [
+               "`response` (object): the raw response object from `fetch`",
+               "`body` (object): the response body",
+               "default - `response => !response.ok`"
+             ]
+           },
+
+           {
+             "title": "`config.onStart` (function)",
+             "example": "api_snippet_middleware_lifecycle_hooks.md",
+             "description": "A callback, called when any request starts"
+           },
+
+           {
+             "title": "`config.onSuccess` (function)",
+             "example": "api_snippet_middleware_lifecycle_hooks.md",
+             "description": "A callback, called when any request is successful"
+           },
+
+           {
+             "title": "`config.onError` (function)",
+             "example": "api_snippet_middleware_lifecycle_hooks.md",
+             "description": "A callback, called when any request or response error is encountered"
+           },
+
+           {
+             "title": "`config.startType` (string)",
+             "example": "api_snippet_middleware_action_types.md",
+             "description": "An action to dispatch before a request starts"
+           },
+
+           {
+             "title": "`config.successType` (string)",
+             "example": "api_snippet_middleware_action_types.md",
+             "description": "An action to when a successful response is received"
+           },
+
+           {
+             "title": "`config.errorType` (string)",
+             "example": "api_snippet_middleware_action_types.md",
+             "description": "An action to dispatch when a request or response error is encountered"
+           },
+
+           {
+             "title": "`config.apiRoot` (string)",
+             "example": "api_snippet_middleware_apiRoot.md",
+             "description": "A url or path to prepend to all REST requests"
+           },
+
+           {
+             "title": "`config.includeCookies` (boolean|string)",
+             "example": "api_snippet_middleware_includeCookies.md",
+             "description": "Determines to cookie behaviour. ** Cookies will not be sent with any request by default **",
+             "points": [
+               "`false` - Never send cookies [default]",
+               "`true` - Include cookies but only for requests on the same domain",
+               "`'cors'` - Always include cookies in requests"
+             ]
+           },
+
+           {
+             "title": "`config.headers` (object|function)",
+             "example": "api_snippet_middleware_headers.md",
+             "description": "A map (or function returning a map) of headers to send with all requests"
+           },
+
+           {
+             "title": "`config.fetch` (function)",
+             "description": "An implementation of `fetch` which meets the whatwg spec. Use this option if you do not want to polyfill on the window for whatever reason"
+           }
+
+          ]
+        }
+      ]
+    }
+  ]
+}

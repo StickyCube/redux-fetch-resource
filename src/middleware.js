@@ -6,18 +6,15 @@ import {getConfigWithDefaults} from './utils.js';
  * Creates a redux middleware function for making REST requests
  * @param  {object} options                           Options to configure the behaviour
  * @param  {string} [options.defaultMethod='GET']     The default method for requests
- * @param  {function} [options.formatResponse]        A function to format a succesful response payload
- * @param  {function} [options.formatResponseError]   A function to format a response error payload
- * @param  {function} [options.formatRequestError]    A function to format a request error payload
  * @param  {function} [options.isResponseError]       A function to determine whether a response should be condidered an error
  * @param  {function} [options.onStart=noop]          A function which will be called when the request starts
- * @param  {function} [option.onSuccess=noop]             A function which will be called when the request is Successful
+ * @param  {function} [option.onSuccess=noop]         A function which will be called when the request is Successful
  * @param  {function} [option.onError=noop]           A function which will be called when there is a request/response error
  * @param  {string)} [options.startType]              An addtional secondary action to dispatch before a request starts
- * @param  {string} [options.successType]                 An addtional secondary action to dispatch When a successful response is received
+ * @param  {string} [options.successType]             An addtional secondary action to dispatch When a successful response is received
  * @param  {string} [options.errorType]               An addtional secondary action to dispatch When a request/response error is encountered
  * @param  {string} [options.apiRoot='/']             Sets a base patname or url for all endpoints
- * @param  {string} [options.includeCookies='never']  Set cookie behaviour - valid options are 'never', 'always' or 'same-origin'
+ * @param  {string} [options.includeCookies=false]    Set cookie behaviour - valid options are true, false or 'cors'
  * @param  {(object|function)} [options.headers={}]   A map (or function returning a map) of additional headers to send with all requests
  * @param  {function} [fetch=window.fetch]            A customized implementation of the whatwg fetch spec. This is used internally for testing. You should consider using a fetch polyfill rather than this option.
  *

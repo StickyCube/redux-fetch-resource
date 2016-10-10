@@ -14,14 +14,5 @@ npm i --save redux-fetch-resource redux-thunk
 ```
 
 ## TODO - v0.0.0
-* ~~Option for headers~~
-* ~~Option for api root~~
-* ~~Handle queries~~
-* ~~Make request body/query callable~~
-* ~~Handle cookies/jwt~~
-* ~~Make api for `createEndpoint`~~
-* ~~Add lifecycle hooks~~
-* ~~Add meta to secondary actions~~
-* ~~Customizable error filtering~~
-* Documentation!
-* Examples
+* Rename createEndpoint to bindEndpointActionCreator
+* change includeCookies to true | false | 'cors'

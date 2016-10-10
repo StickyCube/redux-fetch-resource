@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Getting Started",
+    "permalink": "/getting-started"
+  },
+
+  {
+    "label": "API",
+    "sections": [
+      {
+        "permalink": "/api/middleware/",
+        "label": "middleware"
+      },
+      {
+        "permalink": "/api/bindEndpointActionCreator/",
+        "label": "bindEndpointActionCreator"
+      },
+      {
+        "label": "FetchResource [Coming Soon]"
+      },
+      {
+        "label": "Fetch Component [Coming Soon]"
+      }
+    ]
+  },
+
+  {
+    "label": "Examples [Coming soon]"
+  }
+]

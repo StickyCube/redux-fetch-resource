@@ -1,7 +1,7 @@
 import {before, after} from 'ava';
 import test from 'ava-spec';
 import {env, createStoreWithOptions} from './fixtures.js';
-import {createEndpoint} from '../src/index.js';
+import {bindEndpointActionCreator} from '../src/index.js';
 
 before(async t => {
   await env.mount();
@@ -13,7 +13,7 @@ after.always(async t => {
 
 test('It should make a request to the correct endpoint', async t => {
   const store = createStoreWithOptions();
-  const Fetch = createEndpoint('/status/200');
+  const Fetch = bindEndpointActionCreator('/status/200');
 
   const response = await store.dispatch(Fetch());
 
@@ -22,7 +22,7 @@ test('It should make a request to the correct endpoint', async t => {
 
 test('It should respect params option', async t => {
   const store = createStoreWithOptions();
-  const Fetch = createEndpoint('/status/:code');
+  const Fetch = bindEndpointActionCreator('/status/:code');
 
   const response = await store.dispatch(Fetch({ params: { code: 230 } }));
 
