@@ -20,7 +20,8 @@
         "label": "Actions"
       },
       {
-        "label": "FetchResource [Coming Soon]"
+        "permalink": "/redux-fetch-resource/api-fetch-resource",
+        "label": "FetchResource"
       },
       {
         "label": "Fetch Component [Coming Soon]"

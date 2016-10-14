@@ -1,5 +1,5 @@
 {
-  "summary": "bindEndpointActionCreator creates an asynchronous action creator for a specified endpoint.",
+  "summary": "bindEndpointActionCreator creates a bound [FetchResource](/redux-fetch-resource/api-fetch-resource) action creator. The endpoint url differs slightly, in that you can specify parameters.",
   "sections": [
     {
       "title": "`bindEndpointActionCreator(url: string, options: ?object)`",
@@ -17,114 +17,10 @@
                 Check out the [url-pattern](https://github.com/snd/url-pattern) module for specifics around syntax.
               "
             },
-
             {
               "title": "`options` (object)",
               "is_main": true,
-              "description": "
-                Options to control behaviour.
-                All fields are optional unless stated otherwise.
-              "
-            },
-
-            {
-              "title": "`options.method` (string)",
-              "example": "api_snippet_bindEndpointActionCreator_method.md",
-              "description":  "
-                Sets the request method.
-                Falls back to the `defaultMethod` option of middleware **LINK HERE**.
-              "
-            },
-
-            {
-              "title": "`options.startType` (string)",
-              "example": "api_snippet_bindEndpointActionCreator_action_types.md",
-              "description": "
-                The name of an action to dispatch before the request starts.
-              "
-            },
-
-            {
-              "title": "`options.successType` (string)",
-              "example": "api_snippet_bindEndpointActionCreator_action_types.md",
-              "description": "
-                The name of an action to dispatch when the request is successful.
-              "
-            },
-
-            {
-              "title": "`options.errorType` (string)",
-              "example": "api_snippet_bindEndpointActionCreator_action_types.md",
-              "description": "
-                The name of an action to dispatch when the api call fails.
-              "
-            },
-
-            {
-              "title": "`options.onStart` (function)",
-              "example": "api_snippet_bindEndpointActionCreator_lifecycle_hooks.md",
-              "description": "
-                A callback function.
-                Called before the request starts with the following parameters:
-              ",
-              "points": [
-                "`payload` (object) - The options object which will be passed to `fetch`.",
-                "`dispatch` (function) - Dispatch an action to the store.",
-                "`getState` (function) - Get the current state of the redux store."
-              ]
-            },
-
-            {
-              "title": "`options.onSuccess` (function)",
-              "example": "api_snippet_bindEndpointActionCreator_lifecycle_hooks.md",
-              "description": "
-                A callback function.
-                Called when the api call is successful with the following parameters:
-              ",
-              "points": [
-                "`payload` (object) - An object representing the response with fields `url` `endpoint` `body` `statusCode` `statusText` `headers`.",
-                "`dispatch` (function) - Dispatch an action to the store.",
-                "`getState` (function) - Get the current state of the redux store."
-              ]
-            },
-
-            {
-              "title": "`options.onError` (function)",
-              "example": "api_snippet_bindEndpointActionCreator_lifecycle_hooks.md",
-              "description": "
-                A callback function.
-                Called when a request or response error is encountered with the following parameters:
-              ",
-              "points": [
-                "`payload` (object) - An object representing the response error with fields `url` `endpoint` `body` `error` `statusCode` `statusText` `headers`.",
-                "`dispatch` (function) - Dispatch an action to the store.",
-                "`getState` (function) - Get the current state of the redux store."
-              ]
-            },
-
-            {
-              "title": "`options.headers` (object|function)",
-              "example": "api_snippet_bindEndpointActionCreator_headers.md",
-              "description": "A map (or function returning a map) of headers to send with requests"
-            },
-
-            {
-              "title": "`options.includeCookies` (boolean|string)",
-              "description": "Determines to cookie behaviour of the request.",
-              "example": "api_snippet_bindEndpointActionCreator_includeCookies.md",
-              "points": [
-                "`false` - Dont send any cookies.",
-                "`true` - Send the cookies but only for the same domain.",
-                "`'cors'` - Send the cookies, including cross-origin sources."
-              ]
-            },
-
-            {
-              "title": "`options.meta` (any)",
-              "example": "api_snippet_bindEndpointActionCreator_meta.md",
-              "description": "
-                This gets passed along with any secondary actions dispatched by the middleware and is accessible as `action.meta`.
-              "
+              "description": "Accepts the same options as `FetchResource` see [here](/redux-fetch-resource/api-fetch-resource#options-object) for an exhaustive list of options"
             }
           ]
         },
@@ -133,7 +29,7 @@
           "title": "Returns",
           "entries": [
             {
-              "title": "`~BoundActionCreator` (function)",
+              "title": "`~BoundFetchResource` (function)",
               "description": "An asynchronous action creator for the bound endpoint"
             }
           ]
@@ -142,7 +38,7 @@
     },
 
     {
-      "title": "`~BoundActionCreator(options: ?object)` (function)",
+      "title": "`~BoundFetchResource(options: ?object)` (function)",
       "subsections": [
         {
           "title": "Arguments",
@@ -150,22 +46,12 @@
             {
               "title": "`options` (object)",
               "is_main": true,
-              "description": ""
-            },
-            {
-              "title": "`options.body` (object|string|function)",
-              "example": "api_snippet_bindEndpointActionCreator_body.md",
-              "description": "The request body, only applies to POST, PUT and PATCH requests. When body is a function it will receive `getState` as an argumnet"
+              "description": "Any of the options to [FetchResource](/redux-fetch-resource/api-fetch-resource#options-object) may be used here and will override the ones specified in `bindEndpointActionCreator`. The only additional option is `params`"
             },
             {
               "title": "`options.params` (object)",
               "example": "api_snippet_bindEndpointActionCreator_params.md",
               "description": "A map of parameters to populate the endpoint if it is parameterized"
-            },
-            {
-              "title": "`options.query` (object)",
-              "example": "api_snippet_bindEndpointActionCreator_query.md",
-              "description": "An object of query parameters to serialize using `querystring`"
             }
           ]
         }
